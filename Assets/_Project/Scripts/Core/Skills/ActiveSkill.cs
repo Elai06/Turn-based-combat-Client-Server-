@@ -15,8 +15,6 @@ namespace Core.Skills
         public override void Activate()
         {
             base.Activate();
-
-            Step = Cooldown;
         }
 
         public void ReduceCooldown()

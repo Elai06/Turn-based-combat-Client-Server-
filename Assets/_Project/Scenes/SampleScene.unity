@@ -441,6 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 117174694}
+  _battleSystem: {fileID: 557265075}
 --- !u!1 &557265074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,6 +1280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c35ae5bed044aea5ee4c5a651a1340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battleSystem: {fileID: 557265075}
   _unit: {fileID: 2005974683}
   _prefab: {fileID: 7073651429180942223, guid: 7617a774b43e9784b8850890fbf1e76a, type: 3}
   _subViewContainer: {fileID: 1773661869}
@@ -1518,6 +1520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6a29583dd742729d719590952a02f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eUnit: 0
   _healthBar: {fileID: 7407181999708258447}
   _damageTarget: {fileID: 2005974683}
 --- !u!1 &1952008197
@@ -1692,6 +1695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd5a82639d741d683bf5dd492fe389f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eUnit: 1
   _healthBar: {fileID: 981708512}
   _damageTarget: {fileID: 1946894098}
 --- !u!224 &2054154837 stripped
@@ -1910,6 +1914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c35ae5bed044aea5ee4c5a651a1340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battleSystem: {fileID: 557265075}
   _unit: {fileID: 1946894098}
   _prefab: {fileID: 7073651429180942223, guid: 7617a774b43e9784b8850890fbf1e76a, type: 3}
   _subViewContainer: {fileID: 48839366}

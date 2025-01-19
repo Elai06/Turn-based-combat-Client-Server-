@@ -15,9 +15,13 @@ namespace Core.Skills.Effects
             Step = step;
         }
 
+        public void UpdateStep(int step)
+        {
+            Step = step;
+        }
+
         public virtual void Activate()
         {
-            Step--;
         }
     }
 }

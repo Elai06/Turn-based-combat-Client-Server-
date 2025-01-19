@@ -11,14 +11,14 @@ namespace Core
             base.StartStep();
 
             var skill = GetRandomSkill();
-            UnitUnitSkillsManager.ActivateSkill(skill);
+            UnitSkillManager.ActivateSkill(skill);
             
             Debug.Log($"Enemy use {skill}");
         }
 
         private ESkill GetRandomSkill()
         {
-            var skills = UnitUnitSkillsManager.Skills.Values
+            var skills = UnitSkillManager.Skills.Values
                 .Where(skill => skill.Step == 0).ToList();
             var randomRange = Random.Range(0, skills.Count);
             return skills[randomRange].Type;

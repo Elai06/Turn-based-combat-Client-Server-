@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Core.Views
@@ -8,6 +6,7 @@ namespace Core.Views
     public class RestartButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
+        [SerializeField] private BattleSystem _battleSystem;
 
         private void OnEnable()
         {
@@ -21,7 +20,7 @@ namespace Core.Views
 
         private void OnRestart()
         {
-            SceneManager.LoadScene(0);
+           _battleSystem.RequestRestart();
         }
     }
 }

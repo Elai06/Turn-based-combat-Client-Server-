@@ -19,9 +19,10 @@ namespace Core.Views.Skills
 
         private void Start()
         {
-            _unitSkillManager = _player.UnitUnitSkillsManager;
+            _unitSkillManager = _player.UnitSkillManager;
             _battleSystem.FinishedRound.Subscribe(_ => OnFinishedRound()).AddTo(gameObject);
             _battleSystem.StartStep.Subscribe(OnFinishedStep).AddTo(gameObject);
+            _battleSystem.RestartedGame.Subscribe(_ => OnRestartedGame()).AddTo(gameObject);
 
             CreateSubViews();
         }
@@ -69,6 +70,11 @@ namespace Core.Views.Skills
         private void OnSelectedSkill(ESkill skill)
         {
             _unitSkillManager.ActivateSkill(skill);
+        }
+        
+        private void OnRestartedGame()
+        {
+            UpdateSkillSubViews();
         }
     }
 }

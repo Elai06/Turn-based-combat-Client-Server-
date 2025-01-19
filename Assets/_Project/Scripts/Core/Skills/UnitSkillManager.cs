@@ -2,24 +2,25 @@
 using System.Linq;
 using Core.Enums;
 using Core.Skills.Effects;
+using Network;
 using UniRx;
 
 namespace Core.Skills
 {
     public class UnitSkillManager
     {
-        public readonly ReactiveCommand<ESkill> UsedSkill = new();
-
         public Dictionary<ESkill, ActiveSkill> Skills { get; private set; } = new();
         public ReactiveDictionary<EEffect, Effect> Effects { get; private set; } = new();
 
-        public readonly ReactiveCommand EffectsChanged = new();
+        public ReactiveCommand EffectsChanged { get; private set; } = new();
+        public ReactiveCommand<ActiveSkill> UsedSkill { get; private set; } = new();
 
-        public void ActivateSkill(ESkill eSkill)
+
+        public void ActivateSkill(ESkill skillType)
         {
-            Skills[eSkill].Activate();
-
-            UsedSkill.Execute(eSkill);
+            var skill = Skills[skillType];
+            skill.Activate();
+            UsedSkill.Execute(skill);
         }
 
         public void ActivateAllBuff()
@@ -30,24 +31,32 @@ namespace Core.Skills
                 if (effect.Step > 0)
                 {
                     effect.Activate();
-                    EffectsChanged.Execute();
                 }
                 else
                 {
                     Effects.Remove(effect.Type);
                 }
             }
-            
+
+            EffectsChanged.Execute();
         }
 
-        public void SkillsReduceCooldown()
+        public void EffectsReduceStep(List<EffectServerData> effectsServerData)
         {
-            foreach (var skill in Skills.Values)
+            foreach (var effectServerData in effectsServerData)
             {
-                if (skill.Step > 0)
+                if (Effects.TryGetValue(effectServerData.EEffect, out var effect))
                 {
-                    skill.ReduceCooldown();
+                    effect.UpdateStep(effectServerData.Cooldown);
                 }
+            }
+        }
+
+        public void SkillsReduceCooldown(List<SkillServerData> skillsServerData)
+        {
+            foreach (var skill in skillsServerData)
+            {
+                Skills[skill.SkillType].Step = skill.Cooldown;
             }
         }
 
@@ -67,7 +76,16 @@ namespace Core.Skills
             if (Effects.ContainsKey(eEffect))
             {
                 Effects.Remove(eEffect);
-                EffectsChanged.Execute();
+            }
+        }
+
+        public void Reset()
+        {
+            Effects.Clear();
+            EffectsChanged.Execute();
+            foreach (var skill in Skills.Values)
+            {
+                skill.Step = 0;
             }
         }
     }

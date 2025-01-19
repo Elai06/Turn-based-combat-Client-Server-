@@ -38,7 +38,7 @@ namespace Core.Views.Skills
 
         private void UpdateCooldownText(int cooldown)
         {
-            _button.interactable = cooldown == 0;
+            _button.interactable = cooldown <= 0;
 
             _cooldown = cooldown;
             _cooldownText.gameObject.SetActive(cooldown > 0);
